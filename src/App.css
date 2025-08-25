@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #130000, #000000, #0b0017);
+  font-family: "Tektur", sans-serif;
+  font-size: 5rem;
+  font-weight: 700;
+  filter: blur(50);
+}
