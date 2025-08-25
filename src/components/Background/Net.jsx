@@ -13,7 +13,7 @@ const MIN_DIST = 0.1;
 const NODE_SCALE = 0.025;
 const LINK_RADIUS_BASE = 0.004;
 const LINK_RADIUS_MAX = 0.008;
-const Z_MIN = -4;
+const Z_MIN = -3;
 const Z_MAX = 0;
 
 const SPEED_X = 0.002;
@@ -23,7 +23,7 @@ const REBUILD_INTERVAL = 1.3; // seconds between Delaunay recompute
 
 // NEW: stronger, more opaque look
 const NODE_COLOR = "#b0b0b0";
-const LINK_COLOR = "#d0d0d0";
+const LINK_COLOR = "#ffffff";
 
 function poissonLikePoints(count, minDist) {
   const pts = [];
@@ -231,9 +231,9 @@ export default function Net() {
           roughness={0.6}
           metalness={0}
           emissive={NODE_COLOR}
-          emissiveIntensity={0.1}
-          transparent={false}
-          opacity={0.2}
+          emissiveIntensity={2}
+          transparent={true}
+          opacity={0.5}
           depthWrite
           toneMapped={false}
         />
