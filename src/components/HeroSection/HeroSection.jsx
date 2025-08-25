@@ -18,6 +18,13 @@ function HeroSection() {
             position={[3, 1, 1]}
             lightOffset={[-0.8, 0.2, 0.2]}
             scale={0.07}
+            intensity={0.2}
+          />
+          <Moon
+            position={[-4.5, -3, -1]}
+            lightOffset={[0.5, 1.3, 0.5]}
+            scale={0.07}
+            intensity={0.05}
           />
           <Sun
             position={[-2.1, 1, 3]}

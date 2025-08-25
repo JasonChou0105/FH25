@@ -1,18 +1,28 @@
+// Moon.jsx
 import { useGLTF } from "@react-three/drei";
-import { useRef } from "react";
-import * as THREE from "three";
-export default function Moon({ position, scale, lightOffset = [0, 0, 0] }) {
-  const ref = useRef();
+import { useMemo, useRef } from "react";
+import { SkeletonUtils } from "three-stdlib"; // safe clone for skinned/animated models
 
+export default function Moon({
+  position = [0, 0, 0],
+  scale = 1,
+  lightOffset = [0, 0, 0],
+  intensity,
+}) {
+  const ref = useRef();
   const { scene } = useGLTF("/models/Moon.glb");
+
+  // Clone so multiple instances don’t share the same scene reference
+  const cloned = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+
   return (
     <group position={position} ref={ref}>
-      <primitive object={scene} scale={scale} dispose={null} />
+      <primitive object={cloned} scale={scale} dispose={null} />
       <pointLight
-        color={"#ffffff"}
-        intensity={0.3} // raise this if it feels dim
-        distance={4} // how far the light reaches
-        decay={2} // physical falloff
+        color="#ffffff"
+        intensity={intensity}
+        distance={4}
+        decay={2}
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
@@ -21,3 +31,6 @@ export default function Moon({ position, scale, lightOffset = [0, 0, 0] }) {
     </group>
   );
 }
+
+// Optional: preload the asset
+useGLTF.preload("/models/Moon.glb");
