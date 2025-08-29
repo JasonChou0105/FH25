@@ -21,7 +21,6 @@ export default function Moon({
       <pointLight
         color="#ffffff"
         intensity={intensity}
-        distance={4}
         decay={2}
         castShadow
         shadow-mapSize-width={1024}

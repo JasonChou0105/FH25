@@ -13,7 +13,7 @@ const MIN_DIST = 0.1;
 const NODE_SCALE = 0.025;
 const LINK_RADIUS_BASE = 0.004;
 const LINK_RADIUS_MAX = 0.008;
-const Z_MIN = -3;
+const Z_MIN = -4;
 const Z_MAX = 0;
 
 const SPEED_X = 0.002;
