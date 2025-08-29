@@ -2,12 +2,28 @@
 
 body {
   position: relative;
-  min-height: 100vh;
   margin: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #000000, #0b0018);
+  background: linear-gradient(135deg, #000000, #0e001f);
   font-family: "Tektur", sans-serif;
   font-size: 5rem;
   font-weight: 700;
   filter: blur(60);
+}
+/* App.css / globals.css */
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Works in Firefox */
+html {
+  scrollbar-width: none; /* Firefox */
 }

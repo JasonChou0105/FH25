@@ -32,7 +32,6 @@ function HeroSection() {
           scale={0.2}
         />
       </Suspense>
-      <Net />
     </>
   );
 }
