@@ -1,6 +1,6 @@
 export default function TitleMain() {
   return (
-    <div className="relative mt-48 ml-48 text-white">
+    <div className="!w-screen !h-screen !min-h-screen relative mt-48 ml-48 text-white">
       <div className="text-7xl mb-8">FraserHacks25</div>
       <div className="text-2xl">
         <div className="">December 12-14, 2025 • In-person event</div>
