@@ -16,28 +16,17 @@ export default function App() {
 
         <Background />
         <ScrollControls pages={4} damping={0.15}>
-          {/* 3D content that scrolls */}
+          {/* 3D content */}
           <Scroll>
-            {/* Page 1: your hero 3D content */}
             <group position={[0, 0, 0]}>
               <HeroSection />
             </group>
-            {/* Page 2: intentionally empty in 3D */}
           </Scroll>
 
           {/* HTML that scrolls by page */}
           <Scroll html>
             {/* Page 1: title */}
             <section style={{ height: "auto" }}>
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
-              <TitleMain />
               <TitleMain />
             </section>
           </Scroll>

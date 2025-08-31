@@ -1,18 +1,17 @@
 import { Canvas } from "@react-three/fiber";
-import Planet from "../3d/Planet";
+import Planet from "../3dAssets/Planet";
 import { Suspense } from "react";
-import Moon from "../3d/Moon";
-import TitleMain from "./TitleMain";
-import Sun from "../3d/Sun";
-import Net from "../Background/Background";
-import MouseLight from "../MouseLight/MouseLight";
-import Astronaut from "../3d/Astronaut";
+import Moon from "../3dAssets/Moon";
+import Sun from "../3dAssets/Sun";
+import Astronaut from "../3dAssets/Astronaut";
+import Laptop from "../3dAssets/Laptop";
 
 function HeroSection() {
   return (
     <>
       <Suspense fallback={null}>
         <Astronaut position={[0.5, -0.3, 3.9]} scale={0.0001} />
+        <Laptop position={[0.5, -0.3, 3.9]} scale={0.0001} />
         <Planet position={[0, 0, -1]} scale={0.2} />
         <Moon
           position={[3, 1, 1]}
