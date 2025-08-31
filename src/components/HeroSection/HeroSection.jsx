@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import Moon from "../3d/Moon";
 import TitleMain from "./TitleMain";
 import Sun from "../3d/Sun";
-import Net from "../Background/Net";
+import Net from "../Background/Background";
 import MouseLight from "../MouseLight/MouseLight";
 import Astronaut from "../3d/Astronaut";
 
