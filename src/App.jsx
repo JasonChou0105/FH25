@@ -7,6 +7,8 @@ import HeroSection from "./components/HeroSection/HeroSection";
 import TitleMain from "./components/HeroSection/TitleMain";
 import MouseLight from "./components/MouseLight/MouseLight";
 import Background from "./components/Background/Background";
+import Intro3D from "./components/Intro/Intro3D";
+import IntroText from "./components/Intro/IntroText";
 
 export default function App() {
   return (
@@ -21,14 +23,22 @@ export default function App() {
             <group position={[0, 0, 0]}>
               <HeroSection />
             </group>
+            <group position={[0, -8, 0]}>
+              <Intro3D />
+            </group>
           </Scroll>
 
           {/* HTML that scrolls by page */}
           <Scroll html>
             {/* Page 1: title */}
-            <section style={{ height: "auto" }}>
+            <section style={{ height: "100vh" }}>
               <TitleMain />
             </section>
+            <section style={{ height: "100vh" }}>
+              <IntroText />
+            </section>
+
+            <section style={{ height: "auto" }}></section>
           </Scroll>
         </ScrollControls>
       </Canvas>

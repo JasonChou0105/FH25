@@ -30,7 +30,7 @@ export default function MouseLight() {
         distance={0}
         angle={Math.PI / 16}
         penumbra={1}
-        decay={1}
+        decay={0.3}
         castShadow
       />
       {/* Spotlight target — must be in the scene */}

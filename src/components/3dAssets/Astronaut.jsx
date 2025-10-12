@@ -1,18 +1,23 @@
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { SkeletonUtils } from "three-stdlib"; // safe clone for skinned/animated models
 
 export default function Astronaut({
   position = [0, 0, 0],
   scale = 1,
   ...props
 }) {
-  const ref = useRef();
+  const groupRef = useRef();
+  const modelRef = useRef();
 
   // Load GLB + animations
   const { scene, animations } = useGLTF("/models/Astronaut.glb");
-  const { mixer } = useAnimations(animations, scene);
+  
+  // Clone first, then setup animations on the clone
+  const cloned = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+  const { mixer } = useAnimations(animations, cloned);
 
   useEffect(() => {
     if (animations.length > 0) {
@@ -32,32 +37,36 @@ export default function Astronaut({
         fps
       );
 
-      // Play the trimmed clip
-      const action = mixer.clipAction(trimmed, scene);
+      // Play the trimmed clip on the cloned scene
+      const action = mixer.clipAction(trimmed, cloned);
       action.reset().play();
     }
-  }, [animations, mixer, scene]);
+  }, [animations, mixer, cloned]);
 
   useFrame(({ clock }, delta) => {
     const t = clock.getElapsedTime();
 
-    if (ref.current) {
-      // Example: no rotation / floating since you zeroed it out
-      ref.current.rotation.y += 0.15 * delta;
-      ref.current.rotation.x += 0.1 * delta;
-
-      // Floating offsets
-      ref.current.position.set(
+    // Float the entire group (position)
+    if (groupRef.current) {
+      groupRef.current.position.set(
         position[0] + Math.sin(t * 0.6) * 0.05,
         position[1] + Math.sin(t * 2) * 0.02,
         position[2] + Math.cos(t * 0.4) * 0.01
       );
     }
+
+    // Rotate only the model
+    if (modelRef.current) {
+      modelRef.current.rotation.y += 0.15 * delta;
+      modelRef.current.rotation.x += 0.1 * delta;
+    }
   });
 
   return (
-    <group ref={ref} scale={scale} {...props}>
-      <primitive object={scene} dispose={null} />
+    <group ref={groupRef} scale={scale} {...props}>
+      <group ref={modelRef}>
+        <primitive object={cloned} dispose={null} />
+      </group>
     </group>
   );
 }
