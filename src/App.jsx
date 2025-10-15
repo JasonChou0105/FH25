@@ -30,19 +30,22 @@ export default function App() {
   return (
     <div className="w-screen h-screen">
       <Canvas
-        dpr={[1, 2]} // ✅ ensures crisp rendering across devices
-        gl={{ antialias: true }}
+        gl={{
+          antialias: true,
+          powerPreference: "high-performance",
+          preserveDrawingBuffer: true,
+        }}
+        dpr={Math.min(window.devicePixelRatio || 1, 2)}
         onCreated={({ gl }) => {
-          // ✅ explicitly set correct pixel ratio and size
-          gl.setPixelRatio(window.devicePixelRatio);
+          gl.setPixelRatio(window.devicePixelRatio || 1);
           gl.setSize(window.innerWidth, window.innerHeight);
         }}
+        camera={{ position: [0, 0, 5], fov: 75 }}
         style={{
           width: "100vw",
           height: "100vh",
           display: "block",
         }}
-        camera={{ position: [0, 0, 5], fov: 75 }}
       >
         <MouseLight />
         <Background />
