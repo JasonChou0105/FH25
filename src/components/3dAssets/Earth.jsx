@@ -42,8 +42,8 @@ export default function Earth({
     if (groupRef.current) {
       const time = clock.getElapsedTime();
       // Use sin to create smooth oscillating rotation (prevents accumulation)
-      groupRef.current.rotation.x += dt * 0.8; 
-      groupRef.current.rotation.y += dt * 0.8; 
+      groupRef.current.rotation.x += dt * 0.2; 
+      groupRef.current.rotation.y += dt * 0.2; 
     }
   });
 
