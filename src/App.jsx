@@ -1,6 +1,7 @@
 // App.jsx
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls, Scroll, Stars } from "@react-three/drei";
+import { useEffect } from "react";
 import "./App.css";
 
 import HeroSection from "./components/HeroSection/HeroSection";
@@ -12,12 +13,40 @@ import IntroText from "./components/Intro/IntroText";
 import Recap3D from "./components/Recap/Recap3d";
 
 export default function App() {
+  // 🔧 Ensure proper pixel ratio after hydration
+  useEffect(() => {
+    const handleResize = () => {
+      const canvases = document.querySelectorAll("canvas");
+      canvases.forEach((c) => {
+        c.width = window.innerWidth * window.devicePixelRatio;
+        c.height = window.innerHeight * window.devicePixelRatio;
+      });
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="w-screen h-screen">
-      <Canvas dpr={Math.max(window.devicePixelRatio, 2)}>
+      <Canvas
+        dpr={[1, 2]} // ✅ ensures crisp rendering across devices
+        gl={{ antialias: true }}
+        onCreated={({ gl }) => {
+          // ✅ explicitly set correct pixel ratio and size
+          gl.setPixelRatio(window.devicePixelRatio);
+          gl.setSize(window.innerWidth, window.innerHeight);
+        }}
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "block",
+        }}
+        camera={{ position: [0, 0, 5], fov: 75 }}
+      >
         <MouseLight />
-
         <Background />
+
         <ScrollControls pages={4} damping={0.15}>
           {/* 3D content */}
           <Scroll>
@@ -32,16 +61,14 @@ export default function App() {
             </group>
           </Scroll>
 
-          {/* HTML that scrolls by page */}
+          {/* HTML overlay that scrolls */}
           <Scroll html>
-            {/* Page 1: title */}
             <section style={{ height: "100vh" }}>
               <TitleMain />
             </section>
             <section style={{ height: "100vh" }}>
               <IntroText />
             </section>
-
             <section style={{ height: "auto" }}></section>
           </Scroll>
         </ScrollControls>
