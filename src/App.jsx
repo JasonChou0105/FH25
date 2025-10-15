@@ -14,15 +14,7 @@ import Recap3D from "./components/Recap/Recap3d";
 export default function App() {
   return (
     <div className="w-screen h-screen">
-      <Canvas 
-        className="w-full h-full"
-        dpr={[1, 2]}
-        gl={{ 
-          antialias: true, 
-          alpha: false,
-          powerPreference: "high-performance"
-        }}
-      >
+      <Canvas gl={{ antialias: false }} pixelRatio={window.devicePixelRatio}>
         <MouseLight />
 
         <Background />
