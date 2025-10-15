@@ -32,12 +32,7 @@ function HeroSection() {
           lightOffset={[0.5, -0.2, 0.1]}
           scale={0.2}
         />
-        <Satellite2
-          position={[-5, -1, 0]}
-          lightOffset={[0, 0, 0]}
-          scale={0.02}
-          intensity={0.3}
-        />
+
         <ISS
           position={[5, 0, 0]}
           lightOffset={[-0.6, 0.4, 1.4]}

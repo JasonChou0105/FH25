@@ -9,6 +9,7 @@ import MouseLight from "./components/MouseLight/MouseLight";
 import Background from "./components/Background/Background";
 import Intro3D from "./components/Intro/Intro3D";
 import IntroText from "./components/Intro/IntroText";
+import Recap3D from "./components/Recap/Recap3d";
 
 export default function App() {
   return (
@@ -25,6 +26,9 @@ export default function App() {
             </group>
             <group position={[0, -8, 0]}>
               <Intro3D />
+            </group>
+            <group position={[0, -16, 0]}>
+              <Recap3D />
             </group>
           </Scroll>
 

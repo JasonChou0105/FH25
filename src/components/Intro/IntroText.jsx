@@ -2,9 +2,9 @@ import ThreeDImage from "../3dAssets/ThreeDImage";
 
 export default function IntroText() {
   return (
-    <div className="flex flex-col min-h-[200vh]">
-      <div className="flex flex-row items-center">
-        <div className="flex flex-col relative ml-96 w-1/4">
+    <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-col relative w-1/4">
           <div className="text-white text-4xl flex flex-col mb-12">
             Welcome to the{" "}
             <div className="text-7xl font-bold text-shadow-2xs tracking-widest">
