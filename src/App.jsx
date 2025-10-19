@@ -14,17 +14,6 @@ import IntroText from "./components/Intro/IntroText";
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
 const Recap3D = lazy(() => import("./components/Recap/Recap3d"));
 
-// Fix DPR after hydration to ensure correct pixel ratio
-function FixDpr() {
-  const { gl } = useThree();
-  useEffect(() => {
-    const newDpr = Math.min(window.devicePixelRatio, 2);
-    gl.setPixelRatio(newDpr);
-    gl.setSize(window.innerWidth, window.innerHeight);
-  }, [gl]);
-  return null;
-}
-
 export default function App() {
   return (
     <div className="w-screen h-screen">
@@ -38,7 +27,6 @@ export default function App() {
           display: "block",
         }}
       >
-        <FixDpr />
         <AdaptiveDpr pixelated />
         <MouseLight />
         <Background />
