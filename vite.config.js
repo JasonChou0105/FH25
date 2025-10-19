@@ -6,11 +6,14 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0];
+          if (id.includes("node_modules")) {
+            if (id.includes("three")) return "three";
+            if (id.includes("@react-three")) return "r3f";
+            return "vendor"; // everything else in node_modules
           }
         },
       },

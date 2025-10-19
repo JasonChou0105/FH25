@@ -1,15 +1,18 @@
 // App.jsx
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls, Scroll, Stars, AdaptiveDpr } from "@react-three/drei";
+import { Suspense, lazy } from "react";
 import "./App.css";
 
 import HeroSection from "./components/HeroSection/HeroSection";
 import TitleMain from "./components/HeroSection/TitleMain";
 import MouseLight from "./components/MouseLight/MouseLight";
 import Background from "./components/Background/Background";
-import Intro3D from "./components/Intro/Intro3D";
 import IntroText from "./components/Intro/IntroText";
-import Recap3D from "./components/Recap/Recap3d";
+
+// Lazy load heavy 3D components
+const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
+const Recap3D = lazy(() => import("./components/Recap/Recap3d"));
 
 export default function App() {
   return (
@@ -35,10 +38,14 @@ export default function App() {
               <HeroSection />
             </group>
             <group position={[0, -8, 0]}>
-              <Intro3D />
+              <Suspense fallback={null}>
+                <Intro3D />
+              </Suspense>
             </group>
             <group position={[0, -16, 0]}>
-              <Recap3D />
+              <Suspense fallback={null}>
+                <Recap3D />
+              </Suspense>
             </group>
           </Scroll>
 
