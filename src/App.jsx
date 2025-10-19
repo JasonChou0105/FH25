@@ -1,8 +1,6 @@
 // App.jsx
-'use client';
-
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls, Scroll, Stars, AdaptiveDpr } from "@react-three/drei";
+import { ScrollControls, Scroll, AdaptiveDpr } from "@react-three/drei";
 import { Suspense, lazy } from "react";
 import "./App.css";
 
@@ -12,7 +10,7 @@ import MouseLight from "./components/MouseLight/MouseLight";
 import Background from "./components/Background/Background";
 import IntroText from "./components/Intro/IntroText";
 
-// Lazy load heavy 3D components
+// Lazy load heavy 3D componentsW
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
 const Recap3D = lazy(() => import("./components/Recap/Recap3d"));
 

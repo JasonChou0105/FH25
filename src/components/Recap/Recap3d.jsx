@@ -1,15 +1,14 @@
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import Moon from "../3dAssets/Moon";
 import Earth from "../3dAssets/Earth";
 
 function Recap3D() {
-  const orbitRef = useRef();
   const [moonPositions, setMoonPositions] = useState([]);
 
   // Animate moon positions to create orbital motion
-  useFrame(({ clock }, dt) => {
+  useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
     const rotationSpeed = 0.08;
     
