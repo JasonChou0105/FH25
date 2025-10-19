@@ -1,4 +1,6 @@
 // App.jsx
+'use client';
+
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls, Scroll, Stars, AdaptiveDpr } from "@react-three/drei";
 import { Suspense, lazy } from "react";
