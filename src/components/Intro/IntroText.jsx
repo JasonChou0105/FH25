@@ -5,14 +5,14 @@ export default function IntroText() {
     <div className="flex flex-col items-center justify-center">
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col relative w-1/4">
-          <div className="text-white text-4xl flex flex-col mb-12">
+          <div className="text-white text-4xl flex flex-col mb-12 ">
             Welcome to the{" "}
             <div className="text-7xl font-bold text-shadow-2xs tracking-widest">
               Largest
             </div>
             Peel Hackathon
           </div>
-          <div className="text-gray-300 text-base leading-7">
+          <div className="text-gray-300 text-base leading-7" style={{ fontFamily: 'Roboto, sans-serif' }}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
             praesentium ex dolor possimus dolores aliquid, similique sunt
             inventore odit, consectetur magni! Ipsa beatae distinctio id soluta
