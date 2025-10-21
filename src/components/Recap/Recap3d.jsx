@@ -95,6 +95,7 @@ function Recap3D() {
               anchorY="middle"
               outlineWidth={0.02}
               outlineColor="black"
+              font="https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff"
             >
               {moons[index].text}
             </Text>
