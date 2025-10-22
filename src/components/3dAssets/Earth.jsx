@@ -20,7 +20,7 @@ export default function Earth({ position = [0, 0, 0], scale = 1 }) {
         // Make the material emissive (self-illuminating) and brighter
         if (child.material) {
           child.material.emissive = new THREE.Color(0.3, 0.3, 0.3); // Blue glow
-          child.material.emissiveIntensity = 0.01;
+          child.material.emissiveIntensity = 0.02;
           // Increase the base color brightness
           if (child.material.color) {
             child.material.color.multiplyScalar(1.5);
