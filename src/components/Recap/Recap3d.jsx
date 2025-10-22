@@ -28,35 +28,35 @@ function Recap3D() {
   // Moons revolving around the planet - 360 degrees with staggered spacing
   const moons = [
     {
-      text: "Moon 1",
+      text: "100+ participants",
       angle: 0, // 0 degrees
       heightOffset: 0.3,
       scale: 0.1,
       orbitDistance: 4.3,
     },
     {
-      text: "Moon 2",
+      text: "30+ projects",
       angle: 72, // 72 degrees
       heightOffset: -0.2,
       scale: 0.1,
       orbitDistance: 4.7,
     },
     {
-      text: "Moon 3",
+      text: "20+ sponsors",
       angle: 144, // 144 degrees
       heightOffset: 0.5,
       scale: 0.1,
       orbitDistance: 4.4,
     },
     {
-      text: "Moon 4",
+      text: "1000+ dollars in prizes",
       angle: 216, // 216 degrees
       heightOffset: -0.4,
       scale: 0.1,
       orbitDistance: 4.6,
     },
     {
-      text: "Moon 5",
+      text: "10000+ lines of code",
       angle: 288, // 288 degrees
       heightOffset: 0.1,
       scale: 0.1,
@@ -89,13 +89,12 @@ function Recap3D() {
             {/* Text attached to moon - positioned above it */}
             <Text
               position={[0, 1.1, 1]}
-              fontSize={0.25}
+              fontSize={0.3}
               color="white"
               anchorX="center"
               anchorY="middle"
-              outlineWidth={0.02}
-              outlineColor="black"
-              font="https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff"
+              font="/fonts/Bitcount.ttf"
+              maxWidth={2.5}
             >
               {moons[index].text}
             </Text>
