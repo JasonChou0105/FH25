@@ -57,7 +57,9 @@ export default function App() {
             <section style={{ height: "100vh" }}>
               <IntroText />
             </section>
-            <section style={{ height: "auto" }}></section>
+            <section style={{ height: "auto" }}>
+              
+            </section>
           </Scroll>
         </ScrollControls>
       </Canvas>

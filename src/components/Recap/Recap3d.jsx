@@ -92,7 +92,7 @@ function Recap3D() {
       <Suspense fallback={null}>
         {/* Central Red Planet */}
         <Earth
-          position={[0, 0, -4]}
+          position={[0, 1.5, -4]}
           lightOffset={[0, 0, 2]}
           scale={0.12}
           intensity={2}
@@ -102,7 +102,7 @@ function Recap3D() {
         <group>
           {/* Moon and asteroids with text */}
           {moonPositions.map((position, index) => (
-            <group key={index} position={[position.x, position.y + 2 - 3, position.z - 3]}>
+            <group key={index} position={[position.x, position.y + 1.5, position.z - 3]}>
               {orbitalObjects[index].type === "Moon" ? (
                 <group>
                   <Text
