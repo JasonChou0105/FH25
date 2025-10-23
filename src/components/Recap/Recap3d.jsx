@@ -127,7 +127,7 @@ function Recap3D() {
                 <group>
                   <Text
                     position={[0, 0, 1]}
-                    fontSize={0.25}
+                    fontSize={0.2}
                     color="white"
                     anchorX="center"
                     anchorY="middle"

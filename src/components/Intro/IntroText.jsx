@@ -1,6 +1,29 @@
-import ThreeDImage from "../3dAssets/ThreeDImage";
+import { useState } from "react";
 
 export default function IntroText() {
+  const [hoveredImage, setHoveredImage] = useState(null);
+
+  const images = [
+    {
+      src: "/images/FH24_1.jpeg",
+      alt: "Photobooth 1",
+      className: "absolute top-0 left-1/2 -translate-x-[70%] -rotate-6 z-30",
+      hoverTransform: "translate-x-[-80%] translate-y-[-20px] rotate-[-15deg] scale-110 z-50"
+    },
+    {
+      src: "/images/FH24_2.jpeg",
+      alt: "Photobooth 2",
+      className: "absolute top-16 left-1/2 translate-x-[10%] rotate-3 z-20",
+      hoverTransform: "translate-x-[30%] translate-y-[-40px] rotate-[15deg] scale-110 z-50"
+    },
+    {
+      src: "/images/FH24_3.jpeg",
+      alt: "Photobooth 3",
+      className: "absolute top-32 left-1/2 -translate-x-[85%] -rotate-1 z-10",
+      hoverTransform: "translate-x-[-100%] translate-y-[-60px] rotate-[-15deg] scale-110 z-50"
+    }
+  ];
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex flex-row items-center justify-center">
@@ -23,39 +46,23 @@ export default function IntroText() {
 
         {/* Photobooth stack */}
         <div className="relative h-[28rem] w-[32rem]">
-          {/* 1) Left */}
-          <img
-            src="/images/FH24_1.jpeg"
-            alt="Photobooth 1"
-            className="
-              absolute top-6 left-1/2 -translate-x-[70%]
-              w-52 sm:w-56 md:w-64 aspect-[3/4] object-cover
-              bg-white p-2 rounded-lg shadow-2xl ring-1 ring-black/10
-              -rotate-6 z-30
-            "
-          />
-          {/* 2) Right (overlapping) */}
-          <img
-            src="/images/FH24_2.jpeg"
-            alt="Photobooth 2"
-            className="
-              absolute top-16 left-1/2 translate-x-[10%]
-              w-52 sm:w-56 md:w-64 aspect-[3/4] object-cover
-              bg-white p-2 rounded-lg shadow-2xl ring-1 ring-black/10
-              rotate-3 z-20
-            "
-          />
-          {/* 3) Left (overlapping further) */}
-          <img
-            src="/images/FH24_3.jpeg"
-            alt="Photobooth 3"
-            className="
-              absolute top-24 left-1/2 -translate-x-[85%]
-              w-52 sm:w-56 md:w-64 aspect-[3/4] object-cover
-              bg-white p-2 rounded-lg shadow-2xl ring-1 ring-black/10
-              -rotate-1 z-10
-            "
-          />
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image.src}
+              alt={image.alt}
+              className={`
+                w-52 sm:w-56 md:w-64 aspect-[3/4] object-cover
+                bg-white p-2 rounded-lg shadow-2xl ring-1 ring-black/10
+                transition-all duration-500 ease-out cursor-pointer
+                ${image.className}
+                ${hoveredImage === index ? image.hoverTransform : ''}
+                ${hoveredImage !== null && hoveredImage !== index ? 'opacity-70' : ''}
+              `}
+              onMouseEnter={() => setHoveredImage(index)}
+              onMouseLeave={() => setHoveredImage(null)}
+            />
+          ))}
         </div>
       </div>
     </div>
