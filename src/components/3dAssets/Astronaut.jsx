@@ -7,6 +7,8 @@ import { SkeletonUtils } from "three-stdlib"; // safe clone for skinned/animated
 export default function Astronaut({
   position = [0, 0, 0],
   scale = 1,
+  lightOffset = [0, 0, 0],
+  intensity = 0,
   ...props
 }) {
   const groupRef = useRef();
@@ -67,6 +69,12 @@ export default function Astronaut({
       <group ref={modelRef}>
         <primitive object={cloned} dispose={null} />
       </group>
+      <pointLight
+        color="#ffffff"
+        intensity={intensity}
+        decay={2}
+        position={lightOffset}
+      />
     </group>
   );
 }

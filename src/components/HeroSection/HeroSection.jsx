@@ -4,9 +4,7 @@ import Moon from "../3dAssets/Moon";
 import Sun from "../3dAssets/Sun";
 import Astronaut from "../3dAssets/Astronaut";
 import Laptop from "../3dAssets/Laptop";
-import Satellite2 from "../3dAssets/Satellite2";
 import ISS from "../3dAssets/ISS";
-import Asteroid from "../3dAssets/Asteroid";
 
 function HeroSection() {
   return (
@@ -38,12 +36,6 @@ function HeroSection() {
           lightOffset={[-0.6, 0.4, 1.4]}
           scale={0.08}
           intensity={0.5}
-        />
-        <Asteroid
-          position={[-2, 1.7, -2]}
-          lightOffset={[-0.6, 0.4, 1.4]}
-          scale={0.2}
-          intensity={0.7}
         />
       </Suspense>
     </>
