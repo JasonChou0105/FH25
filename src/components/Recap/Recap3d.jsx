@@ -81,7 +81,7 @@ const calculateOrbitalPositions = (orbitalObjects, time, rotationSpeed) => {
     const speedMultiplier = object.type === "Astronaut" ? 1.5 : 1;
     const radian = (object.angle * Math.PI) / 180 + (time * rotationSpeed * speedMultiplier);
     const x = Math.cos(radian) * object.orbitDistance;
-    const y = object.heightOffset;
+    const y = object.heightOffset + 1.5; // heightOffset is now properly used with base height
     const z = Math.sin(radian) * object.orbitDistance;
     return { x, y, z };
   });
@@ -194,7 +194,7 @@ const CentralEarth = () => (
 const OrbitalBelt = ({ moonPositions, orbitalObjects }) => (
   <group>
     {moonPositions.map((position, index) => (
-      <group key={index} position={[position.x, position.y + 1.5, position.z - 3]}>
+      <group key={index} position={[position.x, position.y, position.z - 3]}>
         {renderOrbitalObject(orbitalObjects[index], index)}
       </group>
     ))}

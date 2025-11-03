@@ -9,10 +9,42 @@ import TitleMain from "./components/HeroSection/TitleMain";
 import MouseLight from "./components/MouseLight/MouseLight";
 import Background from "./components/Background/Background";
 import IntroText from "./components/Intro/IntroText";
+import { useHorizontalScroll } from "./hooks/useHorizontalScroll";
 
 // Lazy load heavy 3D componentsW
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
 const Recap3D = lazy(() => import("./components/Recap/Recap3d"));
+
+// Component to handle horizontal scrolling
+function HorizontalScrollController() {
+  const { isHorizontalMode, horizontalOffset } = useHorizontalScroll(false);
+  return null;
+}
+
+// Component to wrap Recap3D scenes with horizontal offset
+function Recap3DWrapper() {
+  const { isHorizontalMode, horizontalOffset } = useHorizontalScroll(false);
+  
+  return (
+    <>
+      <group position={[horizontalOffset, -16, 0]}>
+        <Suspense fallback={null}>
+          <Recap3D />
+        </Suspense>
+      </group>
+      <group position={[horizontalOffset - 20, -16, 0]}>
+        <Suspense fallback={null}>
+          <Recap3D />
+        </Suspense>
+      </group>
+      <group position={[horizontalOffset + 20, -16, 0]}>
+        <Suspense fallback={null}>
+          <Recap3D />
+        </Suspense>
+      </group>
+    </>
+  );
+}
 
 export default function App() {
   return (
@@ -32,6 +64,7 @@ export default function App() {
         <Background />
 
         <ScrollControls pages={4} damping={0.15}>
+          <HorizontalScrollController />
           {/* 3D content */}
           <Scroll>
             <group position={[0, 0, 0]}>
@@ -42,11 +75,7 @@ export default function App() {
                 <Intro3D />
               </Suspense>
             </group>
-            <group position={[0, -16, 0]}>
-              <Suspense fallback={null}>
-                <Recap3D />
-              </Suspense>
-            </group>
+            <Recap3DWrapper />
           </Scroll>
 
           {/* HTML overlay that scrolls */}
