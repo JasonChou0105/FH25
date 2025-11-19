@@ -10,6 +10,7 @@ import MouseLight from "./components/MouseLight/MouseLight";
 import Background from "./components/Background/Background";
 import IntroText from "./components/Intro/IntroText";
 import Recap3D from "./components/Recap/Recap3d";
+import RecapText from "./components/Recap/RecapComponents/RecapText/RecapText";
 
 // Lazy load heavy 3D components
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
@@ -54,7 +55,9 @@ export default function App() {
             <section style={{ height: "100vh" }}>
               <IntroText />
             </section>
-            <section style={{ height: "auto" }}></section>
+            <section style={{ height: "100vh" }}>
+              <RecapText />
+            </section>
           </Scroll>
         </ScrollControls>
       </Canvas>
