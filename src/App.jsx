@@ -11,6 +11,7 @@ import Background from "./components/Background/Background";
 import IntroText from "./components/Intro/IntroText";
 import Recap3D from "./components/Recap/Recap3d";
 import RecapText from "./components/Recap/RecapComponents/RecapText/RecapText";
+import RecapProjects from "./components/Recap/RecapComponents/RecapProjects/RecapProjects";
 
 // Lazy load heavy 3D components
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
@@ -49,14 +50,15 @@ export default function App() {
 
           {/* HTML overlay that scrolls */}
           <Scroll html>
-            <section style={{ height: "100vh" }}>
+            <section style={{ height: "100vh", width: "100vw" }}>
               <TitleMain />
             </section>
-            <section style={{ height: "100vh" }}>
+            <section style={{ height: "100vh", width: "100vw" }}>
               <IntroText />
             </section>
-            <section style={{ height: "100vh" }}>
+            <section className="flex flex-row items-center justify-center" style={{ height: "100vh", width: "200vw" }}>
               <RecapText />
+              <RecapProjects />
             </section>
           </Scroll>
         </ScrollControls>

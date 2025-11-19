@@ -20,7 +20,7 @@ function Recap3D() {
       </group>
       <group position={[horizontalOffset + 25, -16, 0]}>
         <Suspense fallback={null}>
-          <PlanetRecap3D />
+          <RecapText3D />
         </Suspense>
       </group>
     </>
