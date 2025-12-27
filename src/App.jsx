@@ -31,6 +31,10 @@ export default function App() {
           display: "block",
         }}
       >
+        <ambientLight
+          color="#ffffff"
+          intensity={0.1}
+        />
         <AdaptiveDpr pixelated />
         <MouseLight />
         <Background />
@@ -56,7 +60,7 @@ export default function App() {
             <section style={{ height: "100vh", width: "100vw" }}>
               <IntroText />
             </section>
-            <section className="flex flex-row items-center justify-center" style={{ height: "100vh", width: "200vw" }}>
+            <section className="flex flex-row items-start justify-center" style={{ height: "100vh", width: "200vw" }}>
               <RecapText />
               <RecapProjects />
             </section>

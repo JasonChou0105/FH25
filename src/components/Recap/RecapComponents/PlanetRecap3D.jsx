@@ -216,11 +216,13 @@ function PlanetRecap3D() {
   return (
     <>
       <Suspense fallback={null}>
+        <group position={[0, 0, 0]}>
         <CentralEarth />
         <OrbitalBelt
-          moonPositions={moonPositions}
-          orbitalObjects={orbitalObjects}
-        />
+            moonPositions={moonPositions}
+            orbitalObjects={orbitalObjects}
+          />
+        </group>
       </Suspense>
     </>
   );

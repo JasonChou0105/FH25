@@ -13,18 +13,18 @@ function RecapText() {
 
     return ( 
         <div className="flex items-center justify-center min-h-screen relative"
-            style={{ transform: `translateY(-${200}px) translateX(${translateX - 150}px)` }}
+            style={{ transform: `translateY(-${200}px) translateX(${translateX }px)` }}
         >
             {/* Textbox 1 - on the left */}
             <div className="relative z-10"
             style={{ transform: `translateX(${translateX*0.1}px)` }}>
-                <RecapTextbox translateX={0} title="Build something to be proud of">
+                <RecapTextbox translateX={20} title="Build something to be proud of">
                     {text1}
                 </RecapTextbox>
             </div>
 
             {/* Image - to the right, overlapping textbox 1, staggered down */}
-            <div className="relative z-0" style={{ transform: `translateY(80px) translateX(-20px)` }}>
+            <div className="relative z-0" style={{ transform: `translateY(80px) translateX(40px)` }}>
                 <img 
                     src="/images/FH24_1.jpeg" 
                     alt="Hackathon"
@@ -36,13 +36,13 @@ function RecapText() {
             </div>
 
             {/* Textbox 2 - to the left of image, overlapping the image */}
-            <div className="relative z-30" style={{ transform: `translateX(${(translateX*0.1)-40}px)` }}>
+            <div className="relative z-30" style={{ transform: `translateX(${(translateX*0.1)}px)` }}>
                 <RecapTextbox translateX={0} title="Create lasting memories">
                     {text2}
                 </RecapTextbox>
             </div>
 
-            <div className="relative z-0" style={{ transform: `translateY(-80px) translateX(-60px)` }}>
+            <div className="relative z-0" style={{ transform: `translateY(-80px) translateX(-20px)` }}>
                 <img 
                     src="/images/FH24_1.jpeg" 
                     alt="Hackathon"

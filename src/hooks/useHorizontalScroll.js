@@ -4,8 +4,8 @@ import { useScroll } from "@react-three/drei";
 
 // Configuration - adjust horizontal scroll range here
 const HORIZONTAL_SCROLL_CONFIG = {
-  maxOffset: 25, // Maximum horizontal movement distance (min is -maxOffset)
-  initialOffset: 25, // Starting position
+  maxOffset: 20, // Maximum horizontal movement distance (min is -maxOffset)
+  initialOffset: 20, // Starting position
   transitionSpeed: 0.05,
   scrollDeltaScale: 0.01, // Scale factor for scroll to movement conversion
   recapSection: {

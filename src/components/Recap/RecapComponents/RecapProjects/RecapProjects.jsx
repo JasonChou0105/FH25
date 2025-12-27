@@ -5,80 +5,80 @@ function RecapProjects() {
     const { horizontalOffset } = useHorizontalScroll(false);
     const translateX = horizontalOffset * 50;
 
-    // Example project data - replace with real data
-    const project = {
-        image: "/images/FH24_1.jpeg",
-        makerName: "John Doe",
-        projectName: "Awesome Project",
-        devpostUrl: "https://devpost.com/software/awesome-project",
-        description: "An innovative solution that solves real-world problems using cutting-edge technology. Built during the hackathon with passion and dedication.",
-        makerInfo: "Computer Science student passionate about web development and AI. Loves building projects that make a difference.",
-        quote: "\"This hackathon was an incredible experience! I learned so much and met amazing people. The atmosphere was electric and the projects were inspiring.\""
+    // Intro section data
+    const introData = {
+        image: "/images/FH24_3.jpeg",
+        title: "Featured Projects",
+        description: "Explore the innovative projects created during this hackathon. Each project represents creativity, dedication, and technical excellence."
     };
 
+    // Projects data
+    const projects = [
+        {
+            image: "/images/Projects/FraserhacksRhythmConductor.jpg",
+            makerName: "Yang Xue",
+            projectName: "RhythmConductor"
+        },
+        {
+            image: "/images/Projects/FraserhacksLogicraft.png",
+            makerName: "Creator Name",
+            projectName: "Logicraft"
+        },
+        {
+            image: "/images/Projects/FraserhacksMartialVision.jpg",
+            makerName: "Creator Name",
+            projectName: "MartialVision"
+        },
+        {
+            image: "/images/Projects/FraserhacksTamoTeach.png",
+            makerName: "Creator Name",
+            projectName: "TamoTeach"
+        }
+    ];
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-6 relative p-8 w-1/3"
-            style={{ transform: `translateY(-200px) translateX(${translateX}px)` }}
+        <div className="flex flex-col justify-start items-center min-h-screen gap-6 relative p-8 w-3/4 pt-8"
+            style={{ transform: `translateX(${translateX}px) translateY(-${150}px)` }}
         >
-            {/* Section 1: Large wide rectangular box on top - Image, Maker Name, Project Name, Devpost Button */}
+            {/* Section 1: Large wide rectangular box on top - Intro to Projects */}
+            <div className="relative z-10 w-1/2">
             <GlassContainer 
                 translateX={translateX * 0.1} 
-                className="p-6 relative z-10 flex flex-row "
+                className="p-6 mb-6 relative z-10 flex flex-row"
             >
                 <img 
-                        src={project.image} 
-                        alt={project.projectName}
-                        className="object-cover rounded-lg h-64"
+                    src={introData.image} 
+                    alt="Projects Intro"
+                    className="object-cover rounded-lg h-64 w-64"
                 />
-                <div className="flex flex-col h-64 pl-8 relative">
-                    {/* Image on the left */}
-    
-                    
-                    {/* Project name, maker name, and description stacked */}
-                    <div className="flex flex-col justify-center text-white flex-1 pr-8">
-                        <div className="text-3xl font-bold mb-2">{project.projectName}</div>
-                        <div className="text-lg opacity-70 mb-3">{project.makerName}</div>
-                        <div className="text-base opacity-70 leading-6">{project.description}</div>
-                    </div>
-
-                    {/* Small Devpost button on bottom right */}
-                    <div>
-                        <a
-                            href={project.devpostUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center px-4 py-2 text-sm bg-white/20 hover:bg-white/30 rounded-lg border border-white/30 transition-all duration-200 text-white font-semibold"
-                        >
-                            Devpost →
-                        </a>
-                    </div>
+                <div className="flex flex-col h-64 pl-8 justify-center text-white flex-1 pr-8">
+                    <div className="text-3xl font-bold mb-3">{introData.title}</div>
+                    <div className="text-base opacity-70 leading-6">{introData.description}</div>
                 </div>
-               
             </GlassContainer>
 
-            {/* Bottom row: Two boxes side by side, together equaling top box width */}
-            <div className="flex gap-6 relative">
-                {/* Section 2: Left box - About the Maker */}
-                <GlassContainer 
-                    translateX={(translateX * 0.1)} 
-                    className="flex-1 px-6 py-4 relative z-20"
-                >
-                    <div className="text-xl font-bold text-white mb-3">About the Maker</div>
-                    <div className="text-lg text-white leading-8 opacity-70">
-                        {project.makerInfo}
-                    </div>
-                </GlassContainer>
-
-                {/* Section 3: Right box - Quote from Maker */}
-                <GlassContainer 
-                    translateX={(translateX * 0.1)} 
-                    className="flex-1 px-5 py-4 relative z-30"
-                >
-                    <div className="text-xl font-bold text-white mb-3">Maker's Reflection</div>
-                    <div className="text-lg text-white leading-8 opacity-70 italic">
-                        {project.quote}
-                    </div>
-                </GlassContainer>
+            {/* Bottom section: Grid of project cards */}
+            <div className="grid grid-cols-1 gap-6 w-full relative">
+                {projects.map((project, index) => (
+                    <GlassContainer 
+                        key={index}
+                        translateX={translateX * 0.1} 
+                        className="relative z-20 flex flex-row p-4"
+                    >
+                        <div className="pr-4 flex-shrink-0">
+                            <img 
+                                src={project.image} 
+                                alt={project.projectName}
+                                className="object-cover rounded-lg h-48 w-64"
+                            />
+                        </div>
+                        <div className="flex flex-col justify-center gap-2 flex-1">
+                            <div className="text-xl font-bold text-white">{project.projectName}</div>
+                            <div className="text-base opacity-70 text-white">{project.makerName}</div>
+                        </div>
+                    </GlassContainer>
+                ))}
+            </div>
             </div>
         </div>
     );
