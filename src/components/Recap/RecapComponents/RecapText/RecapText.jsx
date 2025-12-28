@@ -12,8 +12,8 @@ function RecapText() {
     const translateX = horizontalOffset * 50; // Adjust this multiplier to match your 3D scale
 
     return ( 
-        <div className="flex items-center justify-center min-h-screen relative"
-            style={{ transform: `translateY(-${200}px) translateX(${translateX }px)` }}
+        <div className="flex items-center justify-center min-h-screen w-1/2"
+            style={{ transform: `translateY(-${200}px) translateX(${translateX}px)` }}
         >
             {/* Textbox 1 - on the left */}
             <div className="relative z-10"

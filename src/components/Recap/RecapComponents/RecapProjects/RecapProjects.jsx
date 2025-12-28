@@ -28,20 +28,15 @@ function RecapProjects() {
             image: "/images/Projects/FraserhacksMartialVision.jpg",
             makerName: "Creator Name",
             projectName: "MartialVision"
-        },
-        {
-            image: "/images/Projects/FraserhacksTamoTeach.png",
-            makerName: "Creator Name",
-            projectName: "TamoTeach"
         }
     ];
 
     return (
-        <div className="flex flex-col justify-start items-center min-h-screen gap-6 relative p-8 w-3/4 pt-8"
+        <div className="flex flex-col justify-center items-center min-h-screen gap-6 w-1/2"
             style={{ transform: `translateX(${translateX}px) translateY(-${150}px)` }}
         >
             {/* Section 1: Large wide rectangular box on top - Intro to Projects */}
-            <div className="relative z-10 w-1/2">
+            <div className="z-10 w-2/3">
             <GlassContainer 
                 translateX={translateX * 0.1} 
                 className="p-6 mb-6 relative z-10 flex flex-row"

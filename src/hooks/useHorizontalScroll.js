@@ -1,11 +1,10 @@
 import { useRef, useEffect, useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
 
 // Configuration - adjust horizontal scroll range here
 const HORIZONTAL_SCROLL_CONFIG = {
-  maxOffset: 20, // Maximum horizontal movement distance (min is -maxOffset)
-  initialOffset: 20, // Starting position
+  // maxOffset and initialOffset are calculated dynamically based on viewport width
   transitionSpeed: 0.05,
   scrollDeltaScale: 0.01, // Scale factor for scroll to movement conversion
   recapSection: {
@@ -16,7 +15,8 @@ const HORIZONTAL_SCROLL_CONFIG = {
 };
 
 // Shared state for HTML components to access the offset
-let sharedHorizontalOffset = HORIZONTAL_SCROLL_CONFIG.initialOffset;
+// Initial value will be set when hook initializes
+let sharedHorizontalOffset = 0;
 const offsetListeners = new Set();
 
 const setSharedOffset = (value) => {
@@ -33,7 +33,12 @@ export const subscribeToHorizontalOffset = (callback) => {
 
 export const useHorizontalScroll = () => {
   const scroll = useScroll();
-  const { maxOffset, initialOffset, transitionSpeed, scrollDeltaScale, recapSection } = HORIZONTAL_SCROLL_CONFIG;
+  const { viewport } = useThree();
+  const { transitionSpeed, scrollDeltaScale, recapSection } = HORIZONTAL_SCROLL_CONFIG;
+  
+  // Calculate maxOffset and initialOffset dynamically based on screen width (viewport width)
+  const maxOffset = viewport.width * 1.5;
+  const initialOffset = viewport.width *1.5;
   
   const [isHorizontalMode, setIsHorizontalMode] = useState(false);
   const [horizontalOffset, setHorizontalOffset] = useState(initialOffset);

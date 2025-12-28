@@ -60,7 +60,7 @@ export default function App() {
             <section style={{ height: "100vh", width: "100vw" }}>
               <IntroText />
             </section>
-            <section className="flex flex-row items-start justify-center" style={{ height: "100vh", width: "200vw" }}>
+            <section className="flex flex-row items-start justify-between" style={{ height: "100vh", width: "180vw" }}>
               <RecapText />
               <RecapProjects />
             </section>
