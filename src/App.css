@@ -28,3 +28,109 @@ body {
 html {
   scrollbar-width: none; /* Firefox */
 }
+
+/* Swiper navigation styles */
+.swiper-nav-button {
+  color: #ffffff !important;
+  z-index: 1000 !important;
+  position: absolute !important;
+  width: 60px !important;
+  height: 60px !important;
+  margin: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  pointer-events: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  font-size: 32px !important;
+  line-height: 1 !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: manipulation !important;
+}
+
+.swiper-nav-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.swiper-nav-button:active {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.swiper-nav-button-next {
+  right: 10px !important;
+}
+
+.swiper-nav-button-prev {
+  left: 10px !important;
+}
+
+.project-swiper .swiper-button-next:after,
+.project-swiper .swiper-button-prev:after {
+  font-size: 24px !important;
+  font-weight: bold !important;
+  display: block !important;
+  pointer-events: none !important;
+  position: relative !important;
+}
+
+.project-swiper .swiper-button-next:hover,
+.project-swiper .swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.project-swiper .swiper-button-next:active,
+.project-swiper .swiper-button-prev:active {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.project-swiper .swiper-button-next {
+  right: 10px !important;
+}
+
+.project-swiper .swiper-button-prev {
+  left: 10px !important;
+}
+
+.project-swiper {
+  overflow: hidden !important;
+}
+
+.project-swiper .swiper-wrapper {
+  overflow: hidden !important;
+}
+
+.project-swiper .swiper-slide {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.project-swiper .swiper-slide-active {
+  opacity: 1;
+}
+
+.project-swiper .swiper-pagination {
+  position: absolute !important;
+  bottom: 10px !important;
+  z-index: 1000 !important;
+}
+
+.project-swiper .swiper-pagination-bullet {
+  background: #ffffff !important;
+  opacity: 0.5;
+  pointer-events: auto !important;
+}
+
+.project-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
