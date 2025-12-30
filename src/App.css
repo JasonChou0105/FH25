@@ -45,7 +45,6 @@ html {
   justify-content: center !important;
   cursor: pointer !important;
   background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 8px !important;
   backdrop-filter: blur(10px) !important;
   padding: 0 !important;
@@ -55,6 +54,7 @@ html {
   user-select: none !important;
   -webkit-user-select: none !important;
   touch-action: manipulation !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 .swiper-nav-button:hover {
