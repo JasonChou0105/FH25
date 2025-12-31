@@ -1,8 +1,10 @@
 // components/Sponsers/Sponsors3D.jsx
 import * as THREE from "three";
-import { useMemo, useState } from "react";
-import { Text, RoundedBox } from "@react-three/drei";
+import { useMemo } from "react";
+import { Text } from "@react-three/drei";
 import SponsorTile3D from "./SponsersTile3D";
+import { extend } from "@react-three/fiber";
+import { shaderMaterial } from "@react-three/drei";
 
 const sponsors = [
   // GOLD (2)
@@ -33,10 +35,10 @@ const sponsors = [
 
 const tierOrder = ["gold", "silver", "bronze", "other"];
 const tierLabels = {
-  gold: "GOLD SPONSORS",
-  silver: "SILVER SPONSORS",
-  bronze: "BRONZE SPONSORS",
-  other: "OTHER SPONSORS",
+  gold: "Gold Sponsers",
+  silver: "Silver Sponsers",
+  bronze: "Bronze Sponsers",
+  other: "Other Sponsers",
 };
 
 // sizes + columns
@@ -46,12 +48,11 @@ const tileSpec = {
   bronze: { w: 4, h: 1.3, cols: 3 },
   other: { w: 3, h: 1.15, cols: 4 },
 };
-
 const tierAccent = {
-  gold: "#D4AF37",
-  silver: "#C0C0C0",
-  bronze: "#CD7F32",
-  other: "#7C8AA0",
+  gold: "#ffefba",
+  silver: "#ebebeb",
+  bronze: "#e8bc90",
+  other: "#ffffff",
 };
 
 function groupByTier(list) {
@@ -60,6 +61,87 @@ function groupByTier(list) {
     return acc;
   }, {});
 }
+
+const UnderlineFadeMaterial = shaderMaterial(
+  {
+    uColor: new THREE.Color("#ffffff"),
+    uOpacity: 1.0,
+    uPowerY: 2.2, // vertical fade curve
+    uFeatherX: 0.18, // left/right edge softness (0.08–0.30)
+    uFeatherY: 0.08, // soften top edge a bit too (0.03–0.15)
+  },
+  // vertex
+  `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+  `,
+  // fragment
+  `
+  uniform vec3 uColor;
+  uniform float uOpacity;
+  uniform float uPowerY;
+  uniform float uFeatherX;
+  uniform float uFeatherY;
+  varying vec2 vUv;
+
+  float edgeFeather(float t, float feather) {
+    // fades to 0 near 0 and 1, stays ~1 in the middle
+    float left  = smoothstep(0.0, feather, t);
+    float right = smoothstep(0.0, feather, 1.0 - t);
+    return left * right;
+  }
+
+  void main() {
+    // Vertical: solid at top -> fade down
+    float vy = 1.0 - pow(1.0 - vUv.y, uPowerY);
+
+    // Soften the top edge slightly too (avoid a hard cutoff at the top)
+    float topSoft = smoothstep(0.0, uFeatherY, 1.0 - vUv.y);
+
+    // Horizontal: fade on left/right edges
+    float hx = edgeFeather(vUv.x, uFeatherX);
+
+    float a = vy * hx * topSoft * uOpacity;
+
+    gl_FragColor = vec4(uColor, a);
+  }
+  `
+);
+
+extend({ UnderlineFadeMaterial });
+
+function UnderlineLight({ width, color, y }) {
+  const fadeH = 4; // how far the fade goes downward
+  const lineY = -0.22; // where the underline sits under the text
+
+  return (
+    <group position={[0, y, 0]}>
+      {/* Visible underline that fades downward */}
+      <mesh position={[0, lineY - fadeH * 0.5 + 0.03, 0.01]}>
+        <planeGeometry args={[width, fadeH]} />
+        <underlineFadeMaterial
+          uColor={new THREE.Color(color)}
+          uOpacity={0.25}
+          uPower={0.6}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+
+      {/* Real light source: thin, long, points down */}
+      <rectAreaLight
+        args={[color, 2, width, 0.18]} // color, intensity, width, height
+        position={[0, lineY, 0.35]}
+        rotation={[-Math.PI / 2, 0, 0]}
+      />
+    </group>
+  );
+}
+
 export default function Sponsors3D({ position = [0, -16, 0] }) {
   const grouped = useMemo(() => groupByTier(sponsors), []);
 
@@ -75,8 +157,10 @@ export default function Sponsors3D({ position = [0, -16, 0] }) {
     const items = grouped[tier] || [];
     if (!items.length) continue;
 
+    // title
     nodes.push(
       <Text
+        font="/fonts/Roboto-Black.ttf"
         key={`${tier}-title`}
         position={[0, cursorY, 0]}
         fontSize={0.42}
@@ -88,9 +172,21 @@ export default function Sponsors3D({ position = [0, -16, 0] }) {
       </Text>
     );
 
+    const { w, h, cols } = tileSpec[tier];
+    const rows = Math.ceil(items.length / cols);
+    // horizontally long light under the title, shining down onto the tiles
+    nodes.push(
+      <UnderlineLight
+        key={`${tier}-underlineLight`}
+        width={14}
+        color={tierAccent[tier]}
+        y={cursorY}
+      />
+    );
+
+    // move down into tile area
     cursorY -= titleGap;
 
-    const { w, h, cols } = tileSpec[tier];
     const rowWidth = cols * w + (cols - 1) * gapX;
     const startX = -rowWidth / 2;
 
@@ -106,7 +202,6 @@ export default function Sponsors3D({ position = [0, -16, 0] }) {
       );
     });
 
-    const rows = Math.ceil(items.length / cols);
     cursorY -= rows * (h + gapY) - gapY;
     cursorY -= sectionGap;
   }

@@ -38,7 +38,7 @@ export default function App() {
         <MouseLight />
         <Background />
 
-        <ScrollControls pages={5} damping={0.15}>
+        <ScrollControls pages={6} damping={0.15}>
           <Scroll>
             <group position={[0, 0, 0]}>
               <HeroSection />
@@ -69,7 +69,9 @@ export default function App() {
               <RecapText />
               <RecapProjects />
             </section>
-            <section style={{ height: "200vh", width: "100vw" }}></section>
+            <section style={{ height: "200vh", width: "100vw" }}>
+              <Sponsers />
+            </section>
           </Scroll>
         </ScrollControls>
       </Canvas>

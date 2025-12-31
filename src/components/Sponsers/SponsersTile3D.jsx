@@ -1,12 +1,14 @@
-// SponsorTile.jsx (copy-paste)
+// SponsorTile3D.jsx (copy-paste)
 import * as THREE from "three";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { RoundedBox, useTexture } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
 const LOGO_URL = "/images/Sponsers/Hack_Club_Flag_Standalone.svg";
 
 export default function SponsorTile3D({ sponsor, w, h, x, y, z }) {
   const [hovered, setHovered] = useState(false);
+  const g = useRef();
 
   const tex = useTexture(LOGO_URL);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -32,16 +34,34 @@ export default function SponsorTile3D({ sponsor, w, h, x, y, z }) {
     }
   }, [tex, w, h]);
 
-  const depth = 0.5;
-  const logoZ = depth / 2 + 0.002; // tiny offset to avoid z-fighting
+  const depth = 0.3;
+  const logoZ = depth / 2 + 0.002;
+
+  // base + hover targets
+  const baseZ = z - 0.5;
+  const hoverLift = 0.18; // how much to lift in Z on hover
+  const targetZ = hovered ? baseZ + hoverLift : baseZ;
+  const targetScale = hovered ? 1.03 : 1;
+
+  // smooth transition (position + scale)
+  useFrame((_, dt) => {
+    if (!g.current) return;
+    g.current.position.z = THREE.MathUtils.damp(
+      g.current.position.z,
+      targetZ,
+      12,
+      dt
+    );
+    const s = THREE.MathUtils.damp(g.current.scale.x, targetScale, 12, dt);
+    g.current.scale.setScalar(s);
+  });
 
   return (
-    <group position={[x, y, z - 0.5]}>
-      {/* White beveled cuboid */}
+    <group ref={g} position={[x, y, baseZ]}>
       <RoundedBox
         args={[w, h, depth]}
-        radius={0.3} // bevel amount
-        smoothness={1}
+        radius={0.2}
+        smoothness={0.1}
         bevelSegments={1}
         steps={1}
         creaseAngle={0.9}
@@ -59,7 +79,6 @@ export default function SponsorTile3D({ sponsor, w, h, x, y, z }) {
           e.stopPropagation();
           open();
         }}
-        scale={hovered ? 1.03 : 1}
       >
         <meshStandardMaterial
           color="#ffffff"

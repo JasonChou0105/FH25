@@ -1,198 +1,77 @@
 // components/Sponsers/Sponsers.jsx
-
-const sponsors = [
-  // GOLD (2)
-  {
-    id: 1,
-    tier: "gold",
-    image: "/sponsors/gold-1.png",
-    link: "https://gold1.com",
-  },
-  {
-    id: 2,
-    tier: "gold",
-    image: "/sponsors/gold-2.png",
-    link: "https://gold2.com",
-  },
-
-  // SILVER (4)
-  {
-    id: 3,
-    tier: "silver",
-    image: "/sponsors/silver-1.png",
-    link: "https://silver1.com",
-  },
-  {
-    id: 4,
-    tier: "silver",
-    image: "/sponsors/silver-2.png",
-    link: "https://silver2.com",
-  },
-  {
-    id: 5,
-    tier: "silver",
-    image: "/sponsors/silver-3.png",
-    link: "https://silver3.com",
-  },
-  {
-    id: 6,
-    tier: "silver",
-    image: "/sponsors/silver-4.png",
-    link: "https://silver4.com",
-  },
-
-  // BRONZE (6)
-  {
-    id: 7,
-    tier: "bronze",
-    image: "/sponsors/bronze-1.png",
-    link: "https://bronze1.com",
-  },
-  {
-    id: 8,
-    tier: "bronze",
-    image: "/sponsors/bronze-2.png",
-    link: "https://bronze2.com",
-  },
-  {
-    id: 9,
-    tier: "bronze",
-    image: "/sponsors/bronze-3.png",
-    link: "https://bronze3.com",
-  },
-  {
-    id: 10,
-    tier: "bronze",
-    image: "/sponsors/bronze-4.png",
-    link: "https://bronze4.com",
-  },
-  {
-    id: 11,
-    tier: "bronze",
-    image: "/sponsors/bronze-5.png",
-    link: "https://bronze5.com",
-  },
-  {
-    id: 12,
-    tier: "bronze",
-    image: "/sponsors/bronze-6.png",
-    link: "https://bronze6.com",
-  },
-
-  // OTHER (5)
-  {
-    id: 13,
-    tier: "other",
-    image: "/sponsors/other-1.png",
-    link: "https://other1.com",
-  },
-  {
-    id: 14,
-    tier: "other",
-    image: "/sponsors/other-2.png",
-    link: "https://other2.com",
-  },
-  {
-    id: 15,
-    tier: "other",
-    image: "/sponsors/other-3.png",
-    link: "https://other3.com",
-  },
-  {
-    id: 16,
-    tier: "other",
-    image: "/sponsors/other-4.png",
-    link: "https://other4.com",
-  },
-  {
-    id: 17,
-    tier: "other",
-    image: "/sponsors/other-5.png",
-    link: "https://other5.com",
-  },
-];
+import React, { useMemo } from "react";
 
 const tierOrder = ["gold", "silver", "bronze", "other"];
-
 const tierLabels = {
-  gold: "Gold Sponsors",
-  silver: "Silver Sponsors",
-  bronze: "Bronze Sponsors",
-  other: "Other Sponsors",
+  gold: "GOLD SPONSORS",
+  silver: "SILVER SPONSORS",
+  bronze: "BRONZE SPONSORS",
+  other: "OTHER SPONSORS",
 };
 
-const tierGridCols = {
-  gold: "grid-cols-12",
-  silver: "grid-cols-12",
-  bronze: "grid-cols-12",
-  other: "grid-cols-12",
+const tileSpec = {
+  gold: { w: 12, h: 1.7, cols: 1, count: 2 },
+  silver: { w: 6, h: 1.45, cols: 2, count: 4 },
+  bronze: { w: 4, h: 1.3, cols: 3, count: 6 },
+  other: { w: 3, h: 1.15, cols: 4, count: 5 },
 };
 
-const tierTileSpan = {
-  gold: "col-span-12",
-  silver: "col-span-12 md:col-span-6",
-  bronze: "col-span-12 md:col-span-4",
-  other: "col-span-12 sm:col-span-6 md:col-span-3",
-};
+// These must match Sponsors3D.jsx
+const gapY = 0.6;
+const titleGap = 0.9;
+const sectionGap = 1.4;
 
-function groupByTier(list) {
-  return list.reduce((acc, item) => {
-    (acc[item.tier] ||= []).push(item);
-    return acc;
-  }, {});
-}
+// You will tweak these two once and it will lock in:
+const pxPerWorldY = 22; // how many pixels per 1 world unit in Y
+const baseTopPx = 160; // where worldY=0 lands on screen
 
 export default function Sponsers() {
-  const grouped = groupByTier(sponsors);
+  const titleRows = useMemo(() => {
+    let cursorY = 0;
+    const rows = [];
+
+    for (const tier of tierOrder) {
+      const { h, cols, count } = tileSpec[tier];
+      if (!count) continue;
+
+      // Title is at cursorY
+      const topPx = baseTopPx + -cursorY * pxPerWorldY;
+
+      rows.push({ tier, label: tierLabels[tier], topPx });
+
+      // Move into tiles
+      cursorY -= titleGap;
+
+      const r = Math.ceil(count / cols);
+      cursorY -= r * (h + gapY) - gapY;
+      cursorY -= sectionGap;
+    }
+
+    return rows;
+  }, []);
 
   return (
-    <div
-      className="w-full"
-      style={{
-        fontFamily: "Roboto, sans-serif",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-semibold mb-10">Sponsors</h2>
-
-        <div className="space-y-14">
-          {tierOrder.map((tier) => {
-            const items = grouped[tier] || [];
-            if (!items.length) return null;
-
-            return (
-              <section key={tier}>
-                <div className="flex items-baseline justify-between mb-5">
-                  <h3 className="text-xl font-semibold">{tierLabels[tier]}</h3>
-                  <div className="h-px flex-1 bg-white/10 ml-6" />
-                </div>
-
-                <div className={`grid ${tierGridCols[tier]} gap-6`}>
-                  {items.map((s) => (
-                    <a
-                      key={s.id}
-                      href={s.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${tierTileSpan[tier]} 
-                        rounded-xl border border-white/10 bg-white/5
-                        p-6 flex items-center justify-center
-                        transition hover:scale-[1.02] hover:bg-white/10`}
-                    >
-                      <img
-                        src={s.image}
-                        alt={`${tier} sponsor`}
-                        className="max-h-20 w-auto object-contain"
-                        loading="lazy"
-                      />
-                    </a>
-                  ))}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    // <div
+    //   style={{
+    //     zIndex: 10,
+    //   }}
+    // >
+    //   {titleRows.map((t) => (
+    //     <div
+    //       key={t.tier}
+    //       style={{
+    //         color: "white",
+    //         fontWeight: 700,
+    //         letterSpacing: "0.08em",
+    //         fontSize: 18,
+    //         textShadow: "0 2px 12px rgba(0,0,0,0.45)",
+    //         whiteSpace: "nowrap",
+    //       }}
+    //     >
+    //       {t.label}
+    //     </div>
+    //   ))}
+    // </div>
+    <></>
   );
 }
