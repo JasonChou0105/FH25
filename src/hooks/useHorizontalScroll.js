@@ -8,9 +8,9 @@ const HORIZONTAL_SCROLL_CONFIG = {
   transitionSpeed: 0.05,
   scrollDeltaScale: 0.01, // Scale factor for scroll to movement conversion
   recapSection: {
-    start: 0.55,
-    end: 0.65,
-    entryBuffer: 0.1,
+    start: 0.45,
+    end: 0.55,
+    entryBuffer: 0.08,
   },
 };
 
@@ -34,12 +34,13 @@ export const subscribeToHorizontalOffset = (callback) => {
 export const useHorizontalScroll = () => {
   const scroll = useScroll();
   const { viewport } = useThree();
-  const { transitionSpeed, scrollDeltaScale, recapSection } = HORIZONTAL_SCROLL_CONFIG;
-  
+  const { transitionSpeed, scrollDeltaScale, recapSection } =
+    HORIZONTAL_SCROLL_CONFIG;
+
   // Calculate maxOffset and initialOffset dynamically based on screen width (viewport width)
   const maxOffset = viewport.width * 1.5;
-  const initialOffset = viewport.width *1.5;
-  
+  const initialOffset = viewport.width * 1.5;
+
   const [isHorizontalMode, setIsHorizontalMode] = useState(false);
   const [horizontalOffset, setHorizontalOffset] = useState(initialOffset);
   const targetHorizontalOffset = useRef(initialOffset);
@@ -58,13 +59,13 @@ export const useHorizontalScroll = () => {
       if (isHorizontalMode) {
         event.preventDefault();
         event.stopPropagation();
-        
+
         const deltaY = event.deltaY;
         const currentOffset = targetHorizontalOffset.current;
         const horizontalDelta = -deltaY * scrollDeltaScale;
-        
+
         scrollDirectionHorizontal.current = deltaY > 0 ? "right" : "left";
-        
+
         // Clamp to max/min offset range
         targetHorizontalOffset.current = Math.max(
           -maxOffset,
@@ -98,7 +99,8 @@ export const useHorizontalScroll = () => {
     // Check if we're in the Recap section
     const { start, end, entryBuffer } = recapSection;
     const inRecapSection =
-      scrollProgress > start - entryBuffer && scrollProgress < end + entryBuffer;
+      scrollProgress > start - entryBuffer &&
+      scrollProgress < end + entryBuffer;
 
     if (inRecapSection) {
       // Exit horizontal mode if at boundaries
@@ -106,7 +108,7 @@ export const useHorizontalScroll = () => {
         scrollDirectionHorizontal.current === "left" &&
         scrollDirection.current !== "down" &&
         horizontalOffset >= maxOffset - 0.1;
-      
+
       const atRightBoundary =
         scrollDirectionHorizontal.current === "right" &&
         scrollDirection.current !== "up" &&
@@ -116,7 +118,7 @@ export const useHorizontalScroll = () => {
         setIsHorizontalMode(false);
       } else {
         setIsHorizontalMode(true);
-        const target = scroll.el.scrollHeight * 0.51;
+        const target = scroll.el.scrollHeight * 0.41;
         scroll.el.scrollTo({ top: target, behavior: "instant" });
         scrollDirection.current = null;
       }

@@ -12,6 +12,8 @@ import IntroText from "./components/Intro/IntroText";
 import Recap3D from "./components/Recap/Recap3d";
 import RecapText from "./components/Recap/RecapComponents/RecapText/RecapText";
 import RecapProjects from "./components/Recap/RecapComponents/RecapProjects/RecapProjects";
+import Sponsers from "./components/Sponsers/Sponsers";
+import Sponsors3D from "./components/Sponsers/Sponsers3D";
 
 // Lazy load heavy 3D components
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
@@ -31,15 +33,12 @@ export default function App() {
           display: "block",
         }}
       >
-        <ambientLight
-          color="#ffffff"
-          intensity={0.1}
-        />
+        <ambientLight color="#ffffff" intensity={0.1} />
         <AdaptiveDpr pixelated />
         <MouseLight />
         <Background />
 
-        <ScrollControls pages={4} damping={0.15}>
+        <ScrollControls pages={5} damping={0.15}>
           <Scroll>
             <group position={[0, 0, 0]}>
               <HeroSection />
@@ -50,6 +49,9 @@ export default function App() {
               </Suspense>
             </group>
             <Recap3D />
+            <group position={[0, -5, 0]}>
+              <Sponsors3D />
+            </group>
           </Scroll>
 
           {/* HTML overlay that scrolls */}
@@ -60,10 +62,14 @@ export default function App() {
             <section style={{ height: "100vh", width: "100vw" }}>
               <IntroText />
             </section>
-            <section className="flex flex-row items-start justify-between" style={{ height: "100vh", width: "180vw" }}>
+            <section
+              className="flex flex-row items-start justify-between"
+              style={{ height: "100vh", width: "180vw" }}
+            >
               <RecapText />
               <RecapProjects />
             </section>
+            <section style={{ height: "200vh", width: "100vw" }}></section>
           </Scroll>
         </ScrollControls>
       </Canvas>
