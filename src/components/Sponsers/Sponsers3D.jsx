@@ -124,7 +124,7 @@ function UnderlineLight({ width, color, y }) {
         <planeGeometry args={[width, fadeH]} />
         <underlineFadeMaterial
           uColor={new THREE.Color(color)}
-          uOpacity={0.25}
+          uOpacity={0.15}
           uPower={0.6}
           transparent
           depthWrite={false}

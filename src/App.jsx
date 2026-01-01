@@ -14,6 +14,7 @@ import RecapText from "./components/Recap/RecapComponents/RecapText/RecapText";
 import RecapProjects from "./components/Recap/RecapComponents/RecapProjects/RecapProjects";
 import Sponsers from "./components/Sponsers/Sponsers";
 import Sponsors3D from "./components/Sponsers/Sponsers3D";
+import FAQ from "./components/FAQ/FAQ";
 
 // Lazy load heavy 3D components
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
@@ -38,7 +39,7 @@ export default function App() {
         <MouseLight />
         <Background />
 
-        <ScrollControls pages={6} damping={0.15}>
+        <ScrollControls pages={8} damping={0.15}>
           <Scroll>
             <group position={[0, 0, 0]}>
               <HeroSection />
@@ -49,7 +50,7 @@ export default function App() {
               </Suspense>
             </group>
             <Recap3D />
-            <group position={[0, -5, 0]}>
+            <group position={[0, -13, 0]}>
               <Sponsors3D />
             </group>
           </Scroll>
@@ -68,6 +69,9 @@ export default function App() {
             >
               <RecapText />
               <RecapProjects />
+            </section>
+            <section style={{ height: "100vh", width: "100vw" }}>
+              <FAQ />
             </section>
             <section style={{ height: "200vh", width: "100vw" }}>
               <Sponsers />
