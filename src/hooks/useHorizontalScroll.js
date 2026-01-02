@@ -134,20 +134,35 @@ export const useHorizontalScroll = () => {
       }
     }
     // If the scroll came from the Navbar
+    const inRecapEntryExitBounds =
+      scrollProgress >= recapSection.start - recapSection.entryBuffer &&
+      scrollProgress <= recapSection.end + recapSection.entryBuffer;
+
     if (allowNavbarScroll) {
-      if (scrollDirection.current === "down" && horizontalOffset > -maxOffset) {
-        setHorizontalOffset(-maxOffset);
-        setSharedOffset(-maxOffset);
-        targetHorizontalOffset.current = -maxOffset;
-      } else if (
-        scrollDirection.current === "up" &&
-        horizontalOffset < maxOffset
-      ) {
+      if (!inRecapEntryExitBounds) {
+        if (
+          scrollDirection.current === "down" &&
+          horizontalOffset > -maxOffset
+        ) {
+          setHorizontalOffset(-maxOffset);
+          setSharedOffset(-maxOffset);
+          targetHorizontalOffset.current = -maxOffset;
+        } else if (
+          scrollDirection.current === "up" &&
+          horizontalOffset < maxOffset
+        ) {
+          setHorizontalOffset(maxOffset);
+          setSharedOffset(maxOffset);
+          targetHorizontalOffset.current = maxOffset;
+        }
+        setIsHorizontalMode(false);
+      } else {
         setHorizontalOffset(maxOffset);
         setSharedOffset(maxOffset);
         targetHorizontalOffset.current = maxOffset;
       }
     }
+
     if (isHorizontalMode) {
       const currentOffset = horizontalOffset;
       const targetOffset = targetHorizontalOffset.current;
