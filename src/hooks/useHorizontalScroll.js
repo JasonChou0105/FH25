@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
+import { scrollApi } from "../components/Navbar/ScrollController";
 
-// Configuration - adjust horizontal scroll range here
+// Configuration
 const HORIZONTAL_SCROLL_CONFIG = {
-  // maxOffset and initialOffset are calculated dynamically based on viewport width
   transitionSpeed: 0.05,
-  scrollDeltaScale: 0.01, // Scale factor for scroll to movement conversion
+  scrollDeltaScale: 0.01,
   recapSection: {
     start: 0.25,
     end: 0.25,
@@ -14,8 +14,7 @@ const HORIZONTAL_SCROLL_CONFIG = {
   },
 };
 
-// Shared state for HTML components to access the offset
-// Initial value will be set when hook initializes
+// Shared state
 let sharedHorizontalOffset = 0;
 const offsetListeners = new Set();
 
@@ -25,10 +24,22 @@ const setSharedOffset = (value) => {
 };
 
 export const getHorizontalOffset = () => sharedHorizontalOffset;
-
 export const subscribeToHorizontalOffset = (callback) => {
   offsetListeners.add(callback);
   return () => offsetListeners.delete(callback);
+};
+
+// Flag to indicate Navbar-triggered scroll
+let allowNavbarScroll = false;
+
+// Function for Navbar to trigger scroll
+export const scrollFromNavbar = (vh) => {
+  allowNavbarScroll = true; // temporarily allow vertical scroll
+  scrollApi.el.scrollTo({
+    top: (vh / 100) * window.innerHeight,
+    behavior: "smooth",
+  });
+  setTimeout(() => (allowNavbarScroll = false), 800);
 };
 
 export const useHorizontalScroll = () => {
@@ -37,26 +48,27 @@ export const useHorizontalScroll = () => {
   const { transitionSpeed, scrollDeltaScale, recapSection } =
     HORIZONTAL_SCROLL_CONFIG;
 
-  // Calculate maxOffset and initialOffset dynamically based on screen width (viewport width)
   const maxOffset = viewport.width * 1.5;
   const initialOffset = viewport.width * 1.5;
 
   const [isHorizontalMode, setIsHorizontalMode] = useState(false);
   const [horizontalOffset, setHorizontalOffset] = useState(initialOffset);
   const targetHorizontalOffset = useRef(initialOffset);
-  const lastScrollOffset = useRef(0); // Tracks scroll progress (0-1), not horizontal offset
+  const lastScrollOffset = useRef(0);
   const scrollDirection = useRef(null);
   const scrollDirectionHorizontal = useRef(null);
   const lastScrollTime = useRef(Date.now());
 
-  // Sync initial value to shared state
+  // Sync initial value
   useEffect(() => {
     setSharedOffset(initialOffset);
   }, [initialOffset]);
 
+  // Wheel handler
   useEffect(() => {
     const handleWheel = (event) => {
-      if (isHorizontalMode) {
+      // Only prevent default if horizontal mode is active AND NOT coming from Navbar
+      if (isHorizontalMode && !allowNavbarScroll) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -66,13 +78,14 @@ export const useHorizontalScroll = () => {
 
         scrollDirectionHorizontal.current = deltaY > 0 ? "right" : "left";
 
-        // Clamp to max/min offset range
         targetHorizontalOffset.current = Math.max(
           -maxOffset,
           Math.min(maxOffset, currentOffset + horizontalDelta)
         );
 
         return false;
+      } else {
+        return true;
       }
     };
 
@@ -86,7 +99,6 @@ export const useHorizontalScroll = () => {
     const scrollProgress = scroll.offset;
     const currentTime = Date.now();
 
-    // Track scroll direction
     if (scrollProgress > lastScrollOffset.current) {
       scrollDirection.current = "down";
     } else if (scrollProgress < lastScrollOffset.current) {
@@ -96,14 +108,12 @@ export const useHorizontalScroll = () => {
     lastScrollOffset.current = scrollProgress;
     lastScrollTime.current = currentTime;
 
-    // Check if we're in the Recap section
     const { start, end, entryBuffer } = recapSection;
     const inRecapSection =
       scrollProgress > start - entryBuffer &&
       scrollProgress < end + entryBuffer;
 
-    if (inRecapSection) {
-      // Exit horizontal mode if at boundaries
+    if (inRecapSection && !allowNavbarScroll) {
       const atLeftBoundary =
         scrollDirectionHorizontal.current === "left" &&
         scrollDirection.current !== "down" &&
@@ -123,8 +133,21 @@ export const useHorizontalScroll = () => {
         scrollDirection.current = null;
       }
     }
-
-    // Smooth horizontal movement animation
+    // If the scroll came from the Navbar
+    if (allowNavbarScroll) {
+      if (scrollDirection.current === "down" && horizontalOffset > -maxOffset) {
+        setHorizontalOffset(-maxOffset);
+        setSharedOffset(-maxOffset);
+        targetHorizontalOffset.current = -maxOffset;
+      } else if (
+        scrollDirection.current === "up" &&
+        horizontalOffset < maxOffset
+      ) {
+        setHorizontalOffset(maxOffset);
+        setSharedOffset(maxOffset);
+        targetHorizontalOffset.current = maxOffset;
+      }
+    }
     if (isHorizontalMode) {
       const currentOffset = horizontalOffset;
       const targetOffset = targetHorizontalOffset.current;

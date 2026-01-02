@@ -15,6 +15,8 @@ import RecapProjects from "./components/Recap/RecapComponents/RecapProjects/Reca
 import Sponsers from "./components/Sponsers/Sponsers";
 import Sponsors3D from "./components/Sponsers/Sponsers3D";
 import FAQ from "./components/FAQ/FAQ";
+import Navbar from "./components/Navbar/Navbar";
+import ScrollController from "./components/Navbar/ScrollController";
 
 // Lazy load heavy 3D components
 const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
@@ -24,6 +26,8 @@ const Intro3D = lazy(() => import("./components/Intro/Intro3D"));
 export default function App() {
   return (
     <div className="w-screen h-screen">
+      <Navbar />
+
       <Canvas
         dpr={[1, 2]}
         gl={{ antialias: true, powerPreference: "high-performance" }}
@@ -40,6 +44,8 @@ export default function App() {
         <Background />
 
         <ScrollControls pages={8} damping={0.15}>
+          <ScrollController />
+
           <Scroll>
             <group position={[0, 0, 0]}>
               <HeroSection />
