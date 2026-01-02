@@ -50,7 +50,7 @@ export default function App() {
               </Suspense>
             </group>
             <Recap3D />
-            <group position={[0, -13, 0]}>
+            <group position={[0, -15, 0]}>
               <Sponsors3D />
             </group>
           </Scroll>

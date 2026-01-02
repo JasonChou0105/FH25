@@ -8,20 +8,23 @@ export default function IntroText() {
       src: "/images/FH24_1.jpeg",
       alt: "Photobooth 1",
       className: "absolute top-0 left-1/2 -translate-x-[70%] -rotate-6 z-30",
-      hoverTransform: "translate-x-[-80%] translate-y-[-20px] rotate-[-15deg] scale-110 z-50"
+      hoverTransform:
+        "translate-x-[-80%] translate-y-[-20px] rotate-[-15deg] scale-110 z-50",
     },
     {
       src: "/images/FH24_2.jpeg",
       alt: "Photobooth 2",
       className: "absolute top-16 left-1/2 translate-x-[10%] rotate-3 z-20",
-      hoverTransform: "translate-x-[30%] translate-y-[-40px] rotate-[15deg] scale-110 z-50"
+      hoverTransform:
+        "translate-x-[30%] translate-y-[-40px] rotate-[15deg] scale-110 z-50",
     },
     {
       src: "/images/FH24_3.jpeg",
       alt: "Photobooth 3",
       className: "absolute top-32 left-1/2 -translate-x-[85%] -rotate-1 z-10",
-      hoverTransform: "translate-x-[-100%] translate-y-[-60px] rotate-[-15deg] scale-110 z-50"
-    }
+      hoverTransform:
+        "translate-x-[-100%] translate-y-[-60px] rotate-[-15deg] scale-110 z-50",
+    },
   ];
 
   return (
@@ -35,12 +38,15 @@ export default function IntroText() {
             </div>
             Peel Hackathon
           </div>
-          <div className="text-gray-300 text-base leading-7" style={{ fontFamily: 'Roboto, sans-serif' }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-            praesentium ex dolor possimus dolores aliquid, similique sunt
-            inventore odit, consectetur magni! Ipsa beatae distinctio id soluta
-            cupiditate laudantium iusto voluptas. Quae magnam eligendi
-            perferendis quam saepe non aliquam,
+          <div
+            className="text-gray-300 text-base leading-7"
+            style={{ fontFamily: "Roboto, sans-serif" }}
+          >
+            FraserHacks is Mississauga's largest high school hackathon organized
+            entirely by students at John Fraser Secondary School. More than 100
+            students from all of Peel Region will be coming together on Febuary
+            12th 2026, for a full 10 hours of friendly hacking, enthusiastic
+            learning, and delicious food.
           </div>
         </div>
 
@@ -56,8 +62,12 @@ export default function IntroText() {
                 bg-white p-2 rounded-lg shadow-2xl ring-1 ring-black/10
                 transition-all duration-500 ease-out cursor-pointer
                 ${image.className}
-                ${hoveredImage === index ? image.hoverTransform : ''}
-                ${hoveredImage !== null && hoveredImage !== index ? 'opacity-70' : ''}
+                ${hoveredImage === index ? image.hoverTransform : ""}
+                ${
+                  hoveredImage !== null && hoveredImage !== index
+                    ? "opacity-70"
+                    : ""
+                }
               `}
               onMouseEnter={() => setHoveredImage(index)}
               onMouseLeave={() => setHoveredImage(null)}
