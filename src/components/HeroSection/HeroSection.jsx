@@ -10,7 +10,7 @@ function HeroSection() {
   return (
     <>
       <Suspense fallback={null}>
-        <Astronaut position={[0.5, -0.3, 3.9]} scale={0.0001} />
+        <Astronaut position={[-3, 1.3, 1]} scale={0.0002} />
         <Laptop position={[0.5, -0.3, 3.9]} scale={0.0001} />
         <Planet position={[0, 0, -1]} scale={0.24} />
         <Moon

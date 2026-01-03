@@ -90,14 +90,9 @@ export default function FAQ({
 
   return (
     <div className="flex w-full h-full justify-center">
-      <div
-        className={`w-full max-w-3xl ${className}`}
-        style={{
-          fontFamily: "Roboto, sans-serif",
-        }}
-      >
+      <div className={`w-full max-w-3xl ${className}`}>
         <div className="mb-4 border-b-2 border-b-zinc-100 rounded-xl px-8 py-4">
-          <h2 className="text-4xl font-semibold tracking-tight text-zinc-100">
+          <h2 className="text-5xl font-semibold tracking-tight text-zinc-100">
             Frequently Asked Questions
           </h2>
         </div>
@@ -118,7 +113,7 @@ export default function FAQ({
                   aria-controls={panelId}
                   onClick={() => toggle(idx)}
                 >
-                  <span className="text-sm font-semibold tracking-wide text-zinc-200">
+                  <span className="text-base font-semibold tracking-wide text-zinc-200">
                     {item.q}
                   </span>
                   <span className="text-zinc-400" aria-hidden="true">
@@ -137,7 +132,9 @@ export default function FAQ({
                   }`}
                 >
                   <div className="min-h-0">
-                    <p className="text-sm leading-6 text-zinc-400">{item.a}</p>
+                    <p className="text-base leading-6 text-zinc-400">
+                      {item.a}
+                    </p>
                   </div>
                 </div>
               </div>

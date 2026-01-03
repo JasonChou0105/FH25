@@ -38,10 +38,7 @@ export default function IntroText() {
             </div>
             Peel Hackathon
           </div>
-          <div
-            className="text-gray-300 text-base leading-7"
-            style={{ fontFamily: "Roboto, sans-serif" }}
-          >
+          <div className="text-gray-300 text-lg leading-6">
             FraserHacks is Mississauga's largest high school hackathon organized
             entirely by students at John Fraser Secondary School. More than 100
             students from all of Peel Region will be coming together on Febuary

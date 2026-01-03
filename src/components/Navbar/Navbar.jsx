@@ -6,7 +6,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 z-50 flex gap-6 p-4 text-white bg-black/50 backdrop-blur-md">
+    <nav className="fixed top-0 left-0 z-50 flex gap-6 p-4 text-white bg-black/50 backdrop-blur-md text-lg">
       <button
         onClick={() => scrollToVH(0)}
         className="hover:text-blue-400 transition-colors"
