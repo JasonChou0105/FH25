@@ -66,6 +66,12 @@ export default function IntroText() {
                     : ""
                 }
               `}
+              style={{
+                boxShadow:
+                  hoveredImage === index
+                    ? "0 0 14px rgba(217,70,239,0.6), 0 0 34px rgba(217,70,239,0.45), 0 0 70px rgba(168,85,247,0.35)"
+                    : "",
+              }}
               onMouseEnter={() => setHoveredImage(index)}
               onMouseLeave={() => setHoveredImage(null)}
             />

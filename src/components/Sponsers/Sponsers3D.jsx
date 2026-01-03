@@ -7,12 +7,7 @@ import { extend } from "@react-three/fiber";
 
 const sponsors = [
   // GOLD (2)
-  {
-    id: 1,
-    tier: "gold",
-    link: "https://gold1.com",
-    imagePath: "/images/Sponsers/Hack_Club_Flag_Standalone.svg",
-  },
+  { id: 1, tier: "gold", link: "https://gold2.com", imagePath: "" },
   { id: 2, tier: "gold", link: "https://gold2.com", imagePath: "" },
 
   // SILVER (4)
